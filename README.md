@@ -99,3 +99,22 @@ Concepts practiced:
 - Include headers
 - Modular code organization
 - Git commits
+
+## Day 2 Progress
+
+Completed:
+- Added vector-based activity tracking system
+- Implemented menu-driven CLI workflow
+- Added activity removal system
+- Added duplicate activity validation
+- Implemented developer diagnostics mode
+- Added long activity filtering
+
+Concepts practiced:
+- std::vector
+- Range-based loops
+- Input validation
+- Collection management
+- Switch statements
+- Function organization
+- Defensive programming

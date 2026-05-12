@@ -3,6 +3,14 @@
 
 void PrintWelcome();
 
-void PrintGoodbye();
+void PrintGoodbye(const std::string& name = "user");
 
-void PrintUserInfo(const std::string& name, const std::string& trainingGoal, const std::string& favoriteInterest);
+void AddActivity(const std::string& activity);
+
+void RemoveActivity(int index);
+
+void PrintActivities();
+
+void PrintLongActivities();
+
+void ShowDeveloperMode();
