@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 
 #include "utils.h"
 
@@ -14,13 +15,7 @@ int main()
 
 	while (true)
 	{
-		std::cout << "Menu:" << std::endl;
-		std::cout << "1. Add an activity" << std::endl;
-		std::cout << "2. Remove an activity" << std::endl;
-		std::cout << "3. Print all activities" << std::endl;
-		std::cout << "4. Print long activities" << std::endl;
-		std::cout << "5. Show developer mode" << std::endl;
-		std::cout << "6. Exit" << std::endl;
+		PrintMenu();
 
 		std::string menu{ "" };
 		std::cin >> menu;
@@ -53,7 +48,10 @@ int main()
 			std::cin.get();
 			return 0;
 		default:
+			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(hConsole, 12);
 			std::cout << "Invalid option. Please try again." << std::endl;
+			SetConsoleTextAttribute(hConsole, 15);
 		}
 	}
 

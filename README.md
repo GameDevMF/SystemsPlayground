@@ -136,3 +136,20 @@ Concepts practiced:
 - Functions
 - Persistent data storage
 - enumerate()
+
+## Day 4 Progress
+
+Completed:
+- Practiced terminal-only project navigation
+- Improved Git workflow familiarity
+- Created first feature branch
+- Refactored CLI menu printing
+- Practiced repository state inspection
+
+Concepts practiced:
+- Terminal navigation
+- Git status awareness
+- Branching workflows
+- Basic refactoring
+- Separation of concerns
+- Command-line tooling

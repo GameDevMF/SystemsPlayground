@@ -3,6 +3,8 @@
 
 void PrintWelcome();
 
+void PrintMenu();
+
 void PrintGoodbye(const std::string& name = "user");
 
 void AddActivity(const std::string& activity);

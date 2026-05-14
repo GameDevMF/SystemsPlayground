@@ -1,12 +1,24 @@
 #include "utils.h"
 
 #include <vector>
+#include <windows.h>
 
 std::vector<std::string> activities;
 
 void PrintWelcome()
 {
 	std::cout << "Welcome user" << std::endl;
+}
+
+void PrintMenu()
+{
+	std::cout << "Menu:" << std::endl;
+	std::cout << "1. Add an activity" << std::endl;
+	std::cout << "2. Remove an activity" << std::endl;
+	std::cout << "3. Print all activities" << std::endl;
+	std::cout << "4. Print long activities" << std::endl;
+	std::cout << "5. Show developer mode" << std::endl;
+	std::cout << "6. Exit" << std::endl;
 }
 
 void PrintGoodbye(const std::string& name)
@@ -20,7 +32,10 @@ void AddActivity(const std::string& activity)
 	{
 		if (existingActivity == activity)
 		{
+			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(hConsole, 14);
 			std::cout << "This activity already exists. Please try again." << std::endl;
+			SetConsoleTextAttribute(hConsole, 15);
 			return;
 		}
 	}
@@ -41,10 +56,12 @@ void RemoveActivity(int index)
 
 void PrintActivities()
 {
-	std::cout << "Here are all your activities:" << std::endl;
+	std::cout << "Here are your activities:" << std::endl;
 
 	for (size_t i = 0; i < activities.size(); i++)
 		std::cout << i + 1 << ". " << activities[i] << std::endl;
+
+	std::cout << "Activities tracked: " << activities.size() << std::endl;
 }
 
 void PrintLongActivities()
