@@ -71,3 +71,7 @@ Testing/
 # visual studio files
 .vs/
 *.vcxproj.user
+
+# python temp data files
+python/data/
+
