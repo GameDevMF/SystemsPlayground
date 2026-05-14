@@ -142,14 +142,19 @@ Concepts practiced:
 Completed:
 - Practiced terminal-only project navigation
 - Improved Git workflow familiarity
-- Created first feature branch
-- Refactored CLI menu printing
-- Practiced repository state inspection
+- Created and merged first feature branch
+- Refactored CLI menu printing into separate function
+- Added colored CLI error feedback
+- Improved loop type safety using size_t
+- Added activity tracking counter
 
 Concepts practiced:
 - Terminal navigation
 - Git status awareness
 - Branching workflows
+- Merge workflows
 - Basic refactoring
 - Separation of concerns
 - Command-line tooling
+- Console styling
+- Safer iteration patterns
