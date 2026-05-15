@@ -158,3 +158,25 @@ Concepts practiced:
 - Command-line tooling
 - Console styling
 - Safer iteration patterns
+
+## Day 5 Progress
+
+Completed:
+- Practiced breakpoint debugging in Visual Studio
+- Added reusable colored console messaging system
+- Added warning and error helper functions
+- Implemented shortest/longest activity analysis
+- Implemented average activity name length calculation
+- Added centralized activity validation helper
+- Practiced intentional bug investigation and debugging
+
+Concepts practiced:
+- Runtime debugging
+- Breakpoints
+- Refactoring
+- Utility abstraction
+- Edge-case awareness
+- Collection analysis
+- Guard clauses
+- Reusable helper functions
+- Basic platform-specific APIs

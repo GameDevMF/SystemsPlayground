@@ -17,8 +17,11 @@ void PrintMenu()
 	std::cout << "2. Remove an activity" << std::endl;
 	std::cout << "3. Print all activities" << std::endl;
 	std::cout << "4. Print long activities" << std::endl;
-	std::cout << "5. Show developer mode" << std::endl;
-	std::cout << "6. Exit" << std::endl;
+	std::cout << "5. Print shortest activity" << std::endl;
+	std::cout << "6. Print longest activity" << std::endl;
+	std::cout << "7. Print average activity name length" << std::endl;
+	std::cout << "8. Show developer mode" << std::endl;
+	std::cout << "9. Exit" << std::endl;
 }
 
 void PrintGoodbye(const std::string& name)
@@ -32,10 +35,7 @@ void AddActivity(const std::string& activity)
 	{
 		if (existingActivity == activity)
 		{
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hConsole, 14);
-			std::cout << "This activity already exists. Please try again." << std::endl;
-			SetConsoleTextAttribute(hConsole, 15);
+			PrintWarning("This activity already exists. Please try again.");
 			return;
 		}
 	}
@@ -45,6 +45,9 @@ void AddActivity(const std::string& activity)
 
 void RemoveActivity(int index)
 {
+	if (IsActivitiesEmpty())
+		return;
+
 	if (index < 1 || index > activities.size())
 	{
 		std::cout << "Invalid index. Please try again." << std::endl;
@@ -56,6 +59,9 @@ void RemoveActivity(int index)
 
 void PrintActivities()
 {
+	if (IsActivitiesEmpty())
+		return;
+
 	std::cout << "Here are your activities:" << std::endl;
 
 	for (size_t i = 0; i < activities.size(); i++)
@@ -66,11 +72,96 @@ void PrintActivities()
 
 void PrintLongActivities()
 {
+	if (IsActivitiesEmpty())
+		return;
+
 	std::cout << "Here are your long activities:" << std::endl;
 
 	for (const std::string& activity : activities)
 		if (activity.length() > 7)
 			std::cout << activity << std::endl;
+}
+
+void PrintShortestActivity()
+{
+	if (IsActivitiesEmpty())
+		return;
+
+	int index{ -1 };
+	int size{ 0 };
+
+	for (size_t i = 0; i < activities.size(); i++)
+	{
+		if (index == -1 || activities[i].size() < size)
+		{
+			index = i;
+			size = activities[i].size();
+		}
+	}
+
+	std::cout << "Your shortest activity is " << activities[index] << std::endl;
+}
+
+void PrintLongestActivity()
+{
+	if (IsActivitiesEmpty())
+		return;
+
+	int index{ -1 };
+	int size{ 0 };
+
+	for (size_t i = 0; i < activities.size(); i++)
+	{
+		if (index == -1 || activities[i].size() > size)
+		{
+			index = i;
+			size = activities[i].size();
+		}
+	}
+
+	std::cout << "Your longest activity is " << activities[index] << std::endl;
+}
+
+void PrintAverageActivityNameLength()
+{
+	if (IsActivitiesEmpty())
+		return;
+
+	float count{ 0.0f };
+
+	for (const std::string& activity : activities)
+		count += activity.size();
+
+	std::cout << "Your average activity name length is " << count / activities.size() << std::endl;
+}
+
+void PrintColoredMessage(const std::string& message, const unsigned short color)
+{
+	HANDLE hConsole{ GetStdHandle(STD_OUTPUT_HANDLE) };
+	SetConsoleTextAttribute(hConsole, color);
+	std::cout << message << std::endl;
+	SetConsoleTextAttribute(hConsole, 15);
+}
+
+void PrintWarning(const std::string& message)
+{
+	PrintColoredMessage(message, 14);
+}
+
+void PrintError(const std::string& message)
+{
+	PrintColoredMessage(message, 12);
+}
+
+bool IsActivitiesEmpty()
+{
+	if (activities.empty())
+	{
+		PrintWarning("No activities found.");
+		return true;
+	}
+
+	return false;
 }
 
 void ShowDeveloperMode()

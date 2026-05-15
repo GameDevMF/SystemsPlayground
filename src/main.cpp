@@ -41,17 +41,23 @@ int main()
 			PrintLongActivities();
 			break;
 		case '5':
-			ShowDeveloperMode();
+			PrintShortestActivity();
 			break;
 		case '6':
+			PrintLongestActivity();
+			break;
+		case '7':
+			PrintAverageActivityNameLength();
+			break;
+		case '8':
+			ShowDeveloperMode();
+			break;
+		case '9':
 			PrintGoodbye(name);
 			std::cin.get();
 			return 0;
 		default:
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hConsole, 12);
-			std::cout << "Invalid option. Please try again." << std::endl;
-			SetConsoleTextAttribute(hConsole, 15);
+			PrintError("Invalid option. Please try again.");
 		}
 	}
 
