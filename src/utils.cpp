@@ -3,7 +3,7 @@
 #include <vector>
 #include <windows.h>
 
-std::vector<std::string> activities;
+std::vector<Activity> activities;
 
 void PrintWelcome()
 {
@@ -20,8 +20,9 @@ void PrintMenu()
 	std::cout << "5. Print shortest activity" << std::endl;
 	std::cout << "6. Print longest activity" << std::endl;
 	std::cout << "7. Print average activity name length" << std::endl;
-	std::cout << "8. Show developer mode" << std::endl;
-	std::cout << "9. Exit" << std::endl;
+	std::cout << "8. Mark activity as completed" << std::endl;
+	std::cout << "9. Show developer mode" << std::endl;
+	std::cout << "0. Exit" << std::endl;
 }
 
 void PrintGoodbye(const std::string& name)
@@ -29,11 +30,17 @@ void PrintGoodbye(const std::string& name)
 	std::cout << "Goodbye " << name << std::endl;
 }
 
-void AddActivity(const std::string& activity)
+void AddActivity(const Activity& activity)
 {
-	for (const std::string& existingActivity : activities)
+	if (activity.Name.size() == 0)
 	{
-		if (existingActivity == activity)
+		PrintError("Name must have at least 1 character");
+		return;
+	}
+
+	for (const Activity& existingActivity : activities)
+	{
+		if (existingActivity.Name == activity.Name)
 		{
 			PrintWarning("This activity already exists. Please try again.");
 			return;
@@ -45,16 +52,10 @@ void AddActivity(const std::string& activity)
 
 void RemoveActivity(int index)
 {
-	if (IsActivitiesEmpty())
+	if (!IsValidActivityIndex(index))
 		return;
 
-	if (index < 1 || index > activities.size())
-	{
-		std::cout << "Invalid index. Please try again." << std::endl;
-		return;
-	}
-
-	activities.erase(activities.begin() + index - 1);
+	activities.erase(activities.begin() + index);
 }
 
 void PrintActivities()
@@ -65,7 +66,10 @@ void PrintActivities()
 	std::cout << "Here are your activities:" << std::endl;
 
 	for (size_t i = 0; i < activities.size(); i++)
-		std::cout << i + 1 << ". " << activities[i] << std::endl;
+		std::cout << i + 1 << ". " << activities[i].Name <<
+		", Priority: " << activities[i].Priority <<
+		(activities[i].IsCompleted ? " [Done]" : " [Todo]") <<
+		std::endl;
 
 	std::cout << "Activities tracked: " << activities.size() << std::endl;
 }
@@ -77,9 +81,9 @@ void PrintLongActivities()
 
 	std::cout << "Here are your long activities:" << std::endl;
 
-	for (const std::string& activity : activities)
-		if (activity.length() > 7)
-			std::cout << activity << std::endl;
+	for (const Activity& activity : activities)
+		if (activity.Name.length() > 7)
+			std::cout << activity.Name << std::endl;
 }
 
 void PrintShortestActivity()
@@ -92,14 +96,14 @@ void PrintShortestActivity()
 
 	for (size_t i = 0; i < activities.size(); i++)
 	{
-		if (index == -1 || activities[i].size() < size)
+		if (index == -1 || activities[i].Name.size() < size)
 		{
 			index = i;
-			size = activities[i].size();
+			size = activities[i].Name.size();
 		}
 	}
 
-	std::cout << "Your shortest activity is " << activities[index] << std::endl;
+	std::cout << "Your shortest activity is " << activities[index].Name << std::endl;
 }
 
 void PrintLongestActivity()
@@ -112,14 +116,14 @@ void PrintLongestActivity()
 
 	for (size_t i = 0; i < activities.size(); i++)
 	{
-		if (index == -1 || activities[i].size() > size)
+		if (index == -1 || activities[i].Name.size() > size)
 		{
 			index = i;
-			size = activities[i].size();
+			size = activities[i].Name.size();
 		}
 	}
 
-	std::cout << "Your longest activity is " << activities[index] << std::endl;
+	std::cout << "Your longest activity is " << activities[index].Name << std::endl;
 }
 
 void PrintAverageActivityNameLength()
@@ -129,10 +133,25 @@ void PrintAverageActivityNameLength()
 
 	float count{ 0.0f };
 
-	for (const std::string& activity : activities)
-		count += activity.size();
+	for (const Activity& activity : activities)
+		count += activity.Name.size();
 
 	std::cout << "Your average activity name length is " << count / activities.size() << std::endl;
+}
+
+void CompleteActivity(const int index)
+{
+	if (!IsValidActivityIndex(index))
+		return;
+
+	for (size_t i = 0; i < activities.size(); i++)
+	{
+		if (index == i)
+		{
+			activities[i].IsCompleted = true;
+			std::cout << "Activity " << activities[i].Name << " completed!" << std::endl;
+		}
+	}
 }
 
 void PrintColoredMessage(const std::string& message, const unsigned short color)
@@ -164,11 +183,35 @@ bool IsActivitiesEmpty()
 	return false;
 }
 
+bool IsValidActivityIndex(const int index)
+{
+	if (IsActivitiesEmpty())
+		return false;
+
+	if (index < 0 || index > activities.size() - 1)
+	{
+		PrintError("Invalid index. Please try again.");
+		return false;
+	}
+
+	return true;
+}
+
 void ShowDeveloperMode()
 {
+	int completed{ 0 };
+
+	for (const Activity& activity : activities)
+		if (activity.IsCompleted)
+			completed++;
+
+	const int completedPercentage{ static_cast<int>(static_cast<float>(completed) / activities.size() * 100.0f) };
+
 	std::cout << "---Developer mode---" << std::endl;
 	std::cout << "App version 0.0.1" << std::endl;
 	std::cout << "Number of activities: " << activities.size() << std::endl;
+	std::cout << "Number of completed activities: " << completed << std::endl;
+	std::cout << "Percentage of completed activities: " << completedPercentage << std::endl;
 	std::cout << "Current build target: " << (sizeof(void*) == 8 ? "x64" : "x86") << std::endl;
 	std::cout << "Favorite engineering topic: C++" << std::endl;
 }

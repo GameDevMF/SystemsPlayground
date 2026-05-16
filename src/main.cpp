@@ -12,6 +12,7 @@ int main()
 	std::cin >> name;
 
 	std::string input{ "" };
+	Activity activity;
 
 	while (true)
 	{
@@ -19,19 +20,21 @@ int main()
 
 		std::string menu{ "" };
 		std::cin >> menu;
+		int index{ -1 };
 
 		switch (menu[0])
 		{
 		case '1':
 			std::cout << "Enter an activity you want to do: ";
 			std::cin >> input;
-			AddActivity(input);
+			activity.Name = input;
+			AddActivity(activity);
 			break;
 		case '2':
 			PrintActivities();
 			std::cout << "Enter the index of the activity you want to remove: ";
-			int index;
 			std::cin >> index;
+			index--;
 			RemoveActivity(index);
 			break;
 		case '3':
@@ -50,9 +53,16 @@ int main()
 			PrintAverageActivityNameLength();
 			break;
 		case '8':
-			ShowDeveloperMode();
+			PrintActivities();
+			std::cout << "Enter the index of the activity you want to complete: ";
+			std::cin >> index;
+			index--;
+			CompleteActivity(index);
 			break;
 		case '9':
+			ShowDeveloperMode();
+			break;
+		case '0':
 			PrintGoodbye(name);
 			std::cin.get();
 			return 0;
