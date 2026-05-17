@@ -4,6 +4,7 @@
 #include <windows.h>
 
 std::vector<Activity> activities;
+std::string currentMilestone = "Week 1 Complete";
 
 void PrintWelcome()
 {
@@ -68,7 +69,7 @@ void PrintActivities()
 	for (size_t i = 0; i < activities.size(); i++)
 		std::cout << i + 1 << ". " << activities[i].Name <<
 		", Priority: " << activities[i].Priority <<
-		(activities[i].IsCompleted ? " [Done]" : " [Todo]") <<
+		" " << GetActivityStatus(activities[i]) <<
 		std::endl;
 
 	std::cout << "Activities tracked: " << activities.size() << std::endl;
@@ -144,14 +145,8 @@ void CompleteActivity(const int index)
 	if (!IsValidActivityIndex(index))
 		return;
 
-	for (size_t i = 0; i < activities.size(); i++)
-	{
-		if (index == i)
-		{
-			activities[i].IsCompleted = true;
-			std::cout << "Activity " << activities[i].Name << " completed!" << std::endl;
-		}
-	}
+	activities[index].IsCompleted = true;
+	std::cout << "Activity " << activities[index].Name << " completed!" << std::endl;
 }
 
 void PrintColoredMessage(const std::string& message, const unsigned short color)
@@ -197,6 +192,11 @@ bool IsValidActivityIndex(const int index)
 	return true;
 }
 
+std::string GetActivityStatus(const Activity& activity)
+{
+	return activity.IsCompleted ? " [Done]" : " [Todo]";
+}
+
 void ShowDeveloperMode()
 {
 	int completed{ 0 };
@@ -205,7 +205,10 @@ void ShowDeveloperMode()
 		if (activity.IsCompleted)
 			completed++;
 
-	const int completedPercentage{ static_cast<int>(static_cast<float>(completed) / activities.size() * 100.0f) };
+	int completedPercentage{ 0 };
+
+	if (activities.size())
+		completedPercentage = static_cast<int>(static_cast<float>(completed) / activities.size() * 100.0f);
 
 	std::cout << "---Developer mode---" << std::endl;
 	std::cout << "App version 0.0.1" << std::endl;
@@ -213,5 +216,5 @@ void ShowDeveloperMode()
 	std::cout << "Number of completed activities: " << completed << std::endl;
 	std::cout << "Percentage of completed activities: " << completedPercentage << std::endl;
 	std::cout << "Current build target: " << (sizeof(void*) == 8 ? "x64" : "x86") << std::endl;
-	std::cout << "Favorite engineering topic: C++" << std::endl;
+	std::cout << "Current Milestone: " << currentMilestone << std::endl;
 }
