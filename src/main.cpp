@@ -3,6 +3,7 @@
 #include <string>
 
 #include "utils.h"
+#include "ActivityManager.h"
 
 int main()
 {
@@ -14,6 +15,8 @@ int main()
 
 	std::string input{ "" };
 	Activity activity;
+
+	ActivityManager activityManager;
 
 	while (true)
 	{
@@ -35,40 +38,40 @@ int main()
 			std::cout << "Enter an activity you want to do: ";
 			std::getline(std::cin, input);
 			activity.Name = input;
-			AddActivity(activity);
+			activityManager.AddActivity(activity);
 			break;
 		case REMOVE_ACTIVITY_OPTION:
-			PrintActivities();
+			activityManager.PrintActivities();
 			std::cout << "Enter the index of the activity you want to remove: ";
 			std::cin >> index;
 			index--;
-			RemoveActivity(index);
+			activityManager.RemoveActivity(index);
 			break;
 		case PRINT_ALL_ACTIVITIES_OPTION:
-			PrintActivities();
+			activityManager.PrintActivities();
 			break;
 		case PRINT_LONG_ACTIVITIES_OPTION:
-			PrintLongActivities();
+			activityManager.PrintLongActivities();
 			break;
 		case PRINT_SHORTEST_ACTIVITY_OPTION:
-			PrintShortestActivity();
+			activityManager.PrintShortestActivity();
 			break;
 		case PRINT_LONGEST_ACTIVITY_OPTION:
-			PrintLongestActivity();
+			activityManager.PrintLongestActivity();
 			break;
 		case PRINT_AVERAGE_ACTIVITY_NAME_LENGTH_OPTION:
-			PrintAverageActivityNameLength();
+			activityManager.PrintAverageActivityNameLength();
 			break;
 		case MARK_ACTIVITY_COMPLETE_OPTION:
-			PrintActivities();
+			activityManager.PrintActivities();
 			std::cout << "Enter the index of the activity you want to complete: ";
 			std::cin >> index;
 			std::cin.ignore(256, '\n');
 			index--;
-			CompleteActivity(index);
+			activityManager.CompleteActivity(index);
 			break;
 		case SHOW_DEVELOPER_OPTION:
-			ShowDeveloperMode();
+			ShowDeveloperMode(activityManager.GetActivities());
 			break;
 		case EXIT_OPTION:
 			PrintGoodbye(name);

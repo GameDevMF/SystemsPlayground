@@ -82,7 +82,7 @@ Learn by constructing systems, debugging mistakes, and iterating repeatedly.
 
 # Development Progress
 
-## Day 1 Progress
+## Week 1 - Day 1 Progress
 
 Completed:
 - Initial project setup
@@ -100,7 +100,7 @@ Concepts practiced:
 - Modular code organization
 - Git commits
 
-## Day 2 Progress
+## Week 1 - Day 2 Progress
 
 Completed:
 - Added vector-based activity tracking system
@@ -119,7 +119,7 @@ Concepts practiced:
 - Function organization
 - Defensive programming
 
-## Day 3 Progress
+## Week 1 - Day 3 Progress
 
 Completed:
 - Added Python scripting workspace
@@ -137,7 +137,7 @@ Concepts practiced:
 - Persistent data storage
 - enumerate()
 
-## Day 4 Progress
+## Week 1 - Day 4 Progress
 
 Completed:
 - Practiced terminal-only project navigation
@@ -159,7 +159,7 @@ Concepts practiced:
 - Console styling
 - Safer iteration patterns
 
-## Day 5 Progress
+## Week 1 - Day 5 Progress
 
 Completed:
 - Practiced breakpoint debugging in Visual Studio
@@ -181,7 +181,7 @@ Concepts practiced:
 - Reusable helper functions
 - Basic platform-specific APIs
 
-## Day 6 Progress
+## Week 1 - Day 6 Progress
 
 Completed:
 - Introduced structured activity data model using structs
@@ -201,7 +201,7 @@ Concepts practiced:
 - Incremental architecture evolution
 - Runtime state mutation
 
-## Day 7 Progress
+## Week 1 - Day 7 Progress
 
 Completed:
 - Performed full Week 1 code cleanup pass
@@ -221,3 +221,22 @@ Concepts practiced:
 - Cleanup workflows
 - Engineering retrospectives
 - Incremental system improvement
+
+## Week 2 - Day 1 Progress
+
+Completed:
+- Introduced ActivityManager class
+- Moved activity ownership into encapsulated manager system
+- Refactored global activity logic into class methods
+- Introduced private activity state management
+- Split class declarations and implementations into separate files
+- Improved separation between application flow and system logic
+
+Concepts practiced:
+- Classes
+- Encapsulation
+- Public/private access
+- Object ownership
+- Member functions
+- Header/source separation
+- Refactoring toward object-oriented design
