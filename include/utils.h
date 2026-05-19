@@ -18,6 +18,9 @@ struct Activity
 	std::string Name{ "" };
 	int Priority{ 0 };
 	bool IsCompleted{ false };
+
+	Activity(const std::string& name, const int& priority = 1)
+		: Name(name), Priority(priority) {}
 };
 
 void PrintWelcome();

@@ -6,6 +6,8 @@
 class ActivityManager
 {
 public:
+	ActivityManager();
+
 	inline const std::vector<Activity>& GetActivities() const noexcept { return m_activities; }
 
 	void AddActivity(const Activity& activity);

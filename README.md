@@ -240,3 +240,22 @@ Concepts practiced:
 - Member functions
 - Header/source separation
 - Refactoring toward object-oriented design
+
+## Week 2 - Day 2 Progress
+
+Completed:
+- Added constructors to Activity data model
+- Introduced constructor initialization lists
+- Refactored activity creation workflow
+- Added ActivityManager constructor
+- Added validated user-configurable activity priorities
+- Improved object lifecycle handling
+
+Concepts practiced:
+- Constructors
+- Initialization lists
+- Object lifecycle
+- Input validation
+- Data integrity
+- Encapsulation
+- Controlled object creation

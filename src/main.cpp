@@ -13,8 +13,9 @@ int main()
 	std::cout << "Enter your name: ";
 	std::getline(std::cin, name);
 
-	std::string input{ "" };
-	Activity activity;
+	std::string inputString{ "" };
+	int inputNumber{ -1 };
+	std::string activityName;
 
 	ActivityManager activityManager;
 
@@ -24,7 +25,6 @@ int main()
 
 		std::string menu{ "" };
 		std::getline(std::cin, menu);
-		int index{ -1 };
 
 		if (menu.empty())
 		{
@@ -36,16 +36,42 @@ int main()
 		{
 		case ADD_ACTIVITY_OPTION:
 			std::cout << "Enter an activity you want to do: ";
-			std::getline(std::cin, input);
-			activity.Name = input;
-			activityManager.AddActivity(activity);
+			std::getline(std::cin, activityName);
+			while (true)
+			{
+				std::cout << "Enter the priority from 1 to 9 of the activity: ";
+				std::getline(std::cin, inputString);
+
+				if (inputString.size() != 1)
+				{
+					PrintError("The Priority must be between 1 and 9");
+				}
+				else
+				{
+					try
+					{
+						inputNumber = std::stoi(inputString);
+					}
+					catch (const std::exception& e)
+					{
+						PrintError("The Priority must be between 1 and 9");
+						continue;
+					}
+				}
+
+				if (inputNumber < 1 || inputNumber > 9)
+					PrintError("The Priority must be between 1 and 9");
+				else
+					break;
+			}
+			activityManager.AddActivity({ activityName, inputNumber });
 			break;
 		case REMOVE_ACTIVITY_OPTION:
 			activityManager.PrintActivities();
 			std::cout << "Enter the index of the activity you want to remove: ";
-			std::cin >> index;
-			index--;
-			activityManager.RemoveActivity(index);
+			std::cin >> inputNumber;
+			inputNumber--;
+			activityManager.RemoveActivity(inputNumber);
 			break;
 		case PRINT_ALL_ACTIVITIES_OPTION:
 			activityManager.PrintActivities();
@@ -65,10 +91,10 @@ int main()
 		case MARK_ACTIVITY_COMPLETE_OPTION:
 			activityManager.PrintActivities();
 			std::cout << "Enter the index of the activity you want to complete: ";
-			std::cin >> index;
+			std::cin >> inputNumber;
 			std::cin.ignore(256, '\n');
-			index--;
-			activityManager.CompleteActivity(index);
+			inputNumber--;
+			activityManager.CompleteActivity(inputNumber);
 			break;
 		case SHOW_DEVELOPER_OPTION:
 			ShowDeveloperMode(activityManager.GetActivities());

@@ -1,5 +1,10 @@
 #include "ActivityManager.h"
 
+ActivityManager::ActivityManager()
+{
+	std::cout << "Activity Manager created!" << std::endl;
+}
+
 void ActivityManager::AddActivity(const Activity& activity)
 {
 	if (activity.Name.size() == 0)
