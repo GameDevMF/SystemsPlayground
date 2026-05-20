@@ -14,24 +14,31 @@ public:
 
 	void RemoveActivity(const int index);
 
-	void PrintActivities();
-
-	void PrintLongActivities();
-
-	void PrintShortestActivity();
-
-	void PrintLongestActivity();
-
-	void PrintAverageActivityNameLength();
-
 	void CompleteActivity(const int index);
 
+	void PrintActivities() const;
+
+	void PrintLongActivities() const;
+
+	void PrintShortestActivity() const;
+
+	void PrintLongestActivity() const;
+
+	void PrintAverageActivityNameLength() const;
+
+	void PrintHighPriorityActivities() const;
+
+	void ShowDeveloperMode() const;
 private:
 	std::vector<Activity> m_activities;
+
+	std::string m_currentMilestone{ "Week 1 Complete" };
 	
-	bool IsActivitiesEmpty();
+	bool IsActivitiesEmpty() const;
 
-	bool IsValidActivityIndex(const int index);
+	bool IsValidActivityIndex(const int index) const;
 
-	std::string GetActivityStatus(const Activity& activity);
+	std::string GetActivityStatus(const Activity& activity) const;
+
+	void PrintActivity(const Activity& activity, const int number = -1) const;
 };

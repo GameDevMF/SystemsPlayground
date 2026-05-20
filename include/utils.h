@@ -34,5 +34,3 @@ void PrintColoredMessage(const std::string& message, const unsigned short color)
 void PrintWarning(const std::string& message);
 
 void PrintError(const std::string& message);
-
-void ShowDeveloperMode(std::vector<Activity> activities);

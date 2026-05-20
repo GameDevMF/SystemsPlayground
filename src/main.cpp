@@ -97,7 +97,7 @@ int main()
 			activityManager.CompleteActivity(inputNumber);
 			break;
 		case SHOW_DEVELOPER_OPTION:
-			ShowDeveloperMode(activityManager.GetActivities());
+			activityManager.ShowDeveloperMode();
 			break;
 		case EXIT_OPTION:
 			PrintGoodbye(name);

@@ -259,3 +259,23 @@ Concepts practiced:
 - Data integrity
 - Encapsulation
 - Controlled object creation
+
+## Week 2 - Day 3 Progress
+
+Completed:
+- Reduced unnecessary object copying
+- Introduced const references in interfaces
+- Added const member functions
+- Refactored reusable activity print helper
+- Added high-priority activity filtering
+- Improved interface safety and readability
+
+Concepts practiced:
+- Const correctness
+- References
+- Const references
+- Interface design
+- Read-only access
+- API safety
+- Avoiding unnecessary copies
+- Reusable formatting systems
