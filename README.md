@@ -279,3 +279,38 @@ Concepts practiced:
 - API safety
 - Avoiding unnecessary copies
 - Reusable formatting systems
+
+## Week 2 - Day 4 Progress
+
+Completed:
+- Replaced boolean activity completion tracking with ActivityStatus enum class
+- Added PriorityLevel enum class for stronger priority modeling
+- Added activity lifecycle states:
+  - Todo
+  - In Progress
+  - Completed
+- Implemented activity state transitions
+- Added filtering by activity status
+- Added reusable status and priority string helpers
+- Improved input validation using reusable parsing utilities
+- Added TryToGetInputNumber helper for safer integer conversion
+- Refactored developer diagnostics into ActivityManager
+
+Concepts practiced:
+- Enum classes
+- Strong typing
+- State machines
+- State transitions
+- Explicit type conversion
+- Reusable utility functions
+- Input validation
+- Output parameters
+- Encapsulation
+- Reusable filtering systems
+- Centralized formatting logic
+- Safer console input handling
+
+Key learning:
+- Good data models simplify system logic
+- Reusable utility functions reduce duplication
+- Robust input handling is essential for stable software

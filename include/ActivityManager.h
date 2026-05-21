@@ -12,9 +12,11 @@ public:
 
 	void AddActivity(const Activity& activity);
 
-	void RemoveActivity(const int index);
+	void StartActivity(int index);
 
-	void CompleteActivity(const int index);
+	void RemoveActivity(int index);
+
+	void CompleteActivity(int index);
 
 	void PrintActivities() const;
 
@@ -28,6 +30,8 @@ public:
 
 	void PrintHighPriorityActivities() const;
 
+	void PrintActivitiesByStatus(ActivityStatus status) const;
+
 	void ShowDeveloperMode() const;
 private:
 	std::vector<Activity> m_activities;
@@ -36,9 +40,11 @@ private:
 	
 	bool IsActivitiesEmpty() const;
 
-	bool IsValidActivityIndex(const int index) const;
+	bool IsValidActivityIndex(int index) const;
 
-	std::string GetActivityStatus(const Activity& activity) const;
+	std::string GetActivityStatusString(const Activity& activity) const;
 
-	void PrintActivity(const Activity& activity, const int number = -1) const;
+	std::string GetActivityPriorityString(const Activity& activity) const;
+
+	void PrintActivity(const Activity& activity, int number = -1) const;
 };

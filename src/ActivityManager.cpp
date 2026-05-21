@@ -1,6 +1,6 @@
 #include "ActivityManager.h"
 
-constexpr int HIGH_PRIORITY_THRESHOLD{ 7 };
+constexpr PriorityLevel HIGH_PRIORITY_THRESHOLD{ PriorityLevel::High };
 constexpr int LONG_ACTIVITY_NAME_THRESHOLD{ 7 };
 
 ActivityManager::ActivityManager()
@@ -28,7 +28,22 @@ void ActivityManager::AddActivity(const Activity& activity)
 	m_activities.push_back(activity);
 }
 
-void ActivityManager::RemoveActivity(const int index)
+void ActivityManager::StartActivity(int index)
+{
+	if (!IsValidActivityIndex(index))
+		return;
+
+	if (m_activities[index].Status == ActivityStatus::Completed)
+	{
+		PrintWarning("This activity is already completed. Please try again.");
+		return;
+	}
+
+	m_activities[index].Status = ActivityStatus::InProgress;
+	std::cout << "Activity " << m_activities[index].Name << " started!" << std::endl;
+}
+
+void ActivityManager::RemoveActivity(int index)
 {
 	if (!IsValidActivityIndex(index))
 		return;
@@ -36,12 +51,12 @@ void ActivityManager::RemoveActivity(const int index)
 	m_activities.erase(m_activities.begin() + index);
 }
 
-void ActivityManager::CompleteActivity(const int index)
+void ActivityManager::CompleteActivity(int index)
 {
 	if (!IsValidActivityIndex(index))
 		return;
 
-	m_activities[index].IsCompleted = true;
+	m_activities[index].Status = ActivityStatus::Completed;
 	std::cout << "Activity " << m_activities[index].Name << " completed!" << std::endl;
 }
 
@@ -130,12 +145,19 @@ void ActivityManager::PrintHighPriorityActivities() const
 			PrintActivity(activity);
 }
 
+void ActivityManager::PrintActivitiesByStatus(ActivityStatus status) const
+{
+	for (const Activity& activity : m_activities)
+		if (activity.Status == status)
+			PrintActivity(activity);
+}
+
 void ActivityManager::ShowDeveloperMode() const
 {
 	int completed{ 0 };
 
 	for (const Activity& activity : m_activities)
-		if (activity.IsCompleted)
+		if (activity.Status == ActivityStatus::Completed)
 			completed++;
 
 	int completedPercentage{ 0 };
@@ -163,7 +185,7 @@ bool ActivityManager::IsActivitiesEmpty() const
 	return false;
 }
 
-bool ActivityManager::IsValidActivityIndex(const int index) const
+bool ActivityManager::IsValidActivityIndex(int index) const
 {
 	if (IsActivitiesEmpty())
 		return false;
@@ -177,18 +199,47 @@ bool ActivityManager::IsValidActivityIndex(const int index) const
 	return true;
 }
 
-std::string ActivityManager::GetActivityStatus(const Activity& activity) const
+std::string ActivityManager::GetActivityStatusString(const Activity& activity) const
 {
-	return activity.IsCompleted ? " [Done]" : " [Todo]" ;
+	switch (activity.Status)
+	{
+	case ActivityStatus::Todo:
+		return "[Todo]";
+	case ActivityStatus::InProgress:
+		return "[In Progress]";
+	case ActivityStatus::Completed:
+		return "[Done]";
+	default:
+		return "";
+	}
 }
 
-void ActivityManager::PrintActivity(const Activity& activity, const int number) const
+std::string ActivityManager::GetActivityPriorityString(const Activity& activity) const
+{
+	switch (activity.Priority)
+	{
+	case PriorityLevel::Lowest:
+		return "Lowest";
+	case PriorityLevel::Low:
+		return "Low";
+	case PriorityLevel::Medium:
+		return "Medium";
+	case PriorityLevel::High:
+		return "High";
+	case PriorityLevel::Highest:
+		return "Highest";
+	default:
+		return "";
+	}
+}
+
+void ActivityManager::PrintActivity(const Activity& activity, int number) const
 {
 	if (number != -1)
 		std::cout << number << ". ";
 
 	std::cout << activity.Name <<
-		", Priority: " << activity.Priority <<
-		" " << GetActivityStatus(activity) <<
+		", Priority: " << GetActivityPriorityString(activity) <<
+		" " << GetActivityStatusString(activity) <<
 		std::endl;
 }
