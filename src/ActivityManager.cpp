@@ -1,3 +1,7 @@
+#include <fstream>
+#include <iostream>
+#include <string>
+
 #include "ActivityManager.h"
 
 constexpr PriorityLevel HIGH_PRIORITY_THRESHOLD{ PriorityLevel::High };
@@ -5,6 +9,8 @@ constexpr int LONG_ACTIVITY_NAME_THRESHOLD{ 7 };
 
 ActivityManager::ActivityManager()
 {
+	LoadActivitiesFromFile();
+
 	std::cout << "Activity Manager created!" << std::endl;
 }
 
@@ -25,7 +31,15 @@ void ActivityManager::AddActivity(const Activity& activity)
 		}
 	}
 
+	if (activity.Name.find('|') != std::string::npos)
+	{
+		PrintWarning("Activity name cannot contain the '|' character. Please try again.");
+		return;
+	}
+
 	m_activities.push_back(activity);
+
+	SaveActivitiesToFile();
 }
 
 void ActivityManager::StartActivity(int index)
@@ -41,6 +55,8 @@ void ActivityManager::StartActivity(int index)
 
 	m_activities[index].Status = ActivityStatus::InProgress;
 	std::cout << "Activity " << m_activities[index].Name << " started!" << std::endl;
+
+	SaveActivitiesToFile();
 }
 
 void ActivityManager::RemoveActivity(int index)
@@ -49,6 +65,8 @@ void ActivityManager::RemoveActivity(int index)
 		return;
 
 	m_activities.erase(m_activities.begin() + index);
+
+	SaveActivitiesToFile();
 }
 
 void ActivityManager::CompleteActivity(int index)
@@ -58,6 +76,8 @@ void ActivityManager::CompleteActivity(int index)
 
 	m_activities[index].Status = ActivityStatus::Completed;
 	std::cout << "Activity " << m_activities[index].Name << " completed!" << std::endl;
+
+	SaveActivitiesToFile();
 }
 
 void ActivityManager::PrintActivities() const
@@ -242,4 +262,55 @@ void ActivityManager::PrintActivity(const Activity& activity, int number) const
 		", Priority: " << GetActivityPriorityString(activity) <<
 		" " << GetActivityStatusString(activity) <<
 		std::endl;
+}
+
+void ActivityManager::SaveActivitiesToFile() const
+{
+	std::ofstream file("activities.txt");
+
+	if (!file.is_open())
+	{
+		PrintError("Failed to save activities to file.");
+		return;
+	}
+
+	for (const Activity& activity : m_activities)
+		file << activity.Name << "|" << static_cast<int>(activity.Priority) << "|" << static_cast<int>(activity.Status) << std::endl;
+
+	file.close();
+}
+
+void ActivityManager::LoadActivitiesFromFile()
+{
+	std::ifstream file("activities.txt");
+
+	if (!file.is_open()) return;
+
+	std::string line;
+
+	while (std::getline(file, line))
+	{
+		size_t firstDelimiter = line.find('|');
+		size_t secondDelimiter = line.find('|', firstDelimiter + 1);
+
+		if (firstDelimiter == std::string::npos || secondDelimiter == std::string::npos)
+			continue;
+
+		std::string name = line.substr(0, firstDelimiter);
+
+		int priorityValue = std::stoi(line.substr(firstDelimiter + 1, secondDelimiter - firstDelimiter - 1));
+		int statusValue = std::stoi(line.substr(secondDelimiter + 1));
+
+		if (priorityValue < static_cast<int>(PriorityLevel::Lowest) || priorityValue > static_cast<int>(PriorityLevel::Highest) ||
+			statusValue < static_cast<int>(ActivityStatus::Todo) || statusValue > static_cast<int>(ActivityStatus::Completed))
+		{
+			continue;
+		}
+
+		PriorityLevel priority = static_cast<PriorityLevel>(priorityValue);
+		ActivityStatus status = static_cast<ActivityStatus>(statusValue);
+
+		m_activities.emplace_back(name, priority, status);
+	}
+	file.close();
 }

@@ -75,3 +75,5 @@ Testing/
 # python temp data files
 python/data/
 
+# app created files
+activities.txt

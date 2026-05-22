@@ -39,8 +39,11 @@ struct Activity
 	PriorityLevel Priority{ PriorityLevel::Lowest };
 	ActivityStatus Status{ ActivityStatus::Todo };
 
-	Activity(const std::string& name, PriorityLevel priority = PriorityLevel::Lowest)
-		: Name(name), Priority(priority) {}
+	Activity(const std::string& name)
+		: Name(name) {}
+
+	Activity(const std::string& name, PriorityLevel priority, ActivityStatus status = ActivityStatus::Todo)
+		: Name(name), Priority(priority), Status(status) {}
 };
 
 void PrintWelcome();

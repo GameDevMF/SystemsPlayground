@@ -47,4 +47,8 @@ private:
 	std::string GetActivityPriorityString(const Activity& activity) const;
 
 	void PrintActivity(const Activity& activity, int number = -1) const;
+
+	void SaveActivitiesToFile() const;
+
+	void LoadActivitiesFromFile();
 };

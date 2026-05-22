@@ -314,3 +314,29 @@ Key learning:
 - Good data models simplify system logic
 - Reusable utility functions reduce duplication
 - Robust input handling is essential for stable software
+
+## Week 2 - Day 5 Progress
+
+Completed:
+- Added activity saving system
+- Added activity loading system
+- Implemented file persistence
+- Added automatic loading on startup
+- Added automatic saving after activity changes
+- Introduced activity serialization and deserialization
+
+Concepts practiced:
+- File I/O
+- std::ofstream
+- std::ifstream
+- Persistence systems
+- Serialization
+- Deserialization
+- Save/load workflows
+- Application lifecycle management
+- Parsing structured data
+- Data reconstruction
+- Basic serialization format design
+- Persistent application state
+- File parsing and reconstruction
+- Defensive file handling
