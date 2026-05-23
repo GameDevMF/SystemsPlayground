@@ -18,6 +18,14 @@ public:
 
 	void CompleteActivity(int index);
 
+	void SortByName();
+
+	void SortByPriority();
+
+	void SortByStatus();
+
+	void SortByPriorityThenName();
+
 	void PrintActivities() const;
 
 	void PrintLongActivities() const;
@@ -48,7 +56,9 @@ private:
 
 	void PrintActivity(const Activity& activity, int number = -1) const;
 
-	void SaveActivitiesToFile() const;
+	bool CompareActivityNameCaseInsensitive(std::string a, std::string b);
+
+	void SaveActivitiesToFile();
 
 	void LoadActivitiesFromFile();
 };

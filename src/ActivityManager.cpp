@@ -1,11 +1,14 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 #include "ActivityManager.h"
 
-constexpr PriorityLevel HIGH_PRIORITY_THRESHOLD{ PriorityLevel::High };
 constexpr int LONG_ACTIVITY_NAME_THRESHOLD{ 7 };
+constexpr int SAVE_FILE_VERSION{ 1 };
+constexpr PriorityLevel HIGH_PRIORITY_THRESHOLD{ PriorityLevel::High };
+const std::string SAVE_FILE_PATH{ "activities.txt" };
 
 ActivityManager::ActivityManager()
 {
@@ -34,6 +37,12 @@ void ActivityManager::AddActivity(const Activity& activity)
 	if (activity.Name.find('|') != std::string::npos)
 	{
 		PrintWarning("Activity name cannot contain the '|' character. Please try again.");
+		return;
+	}
+
+	if (activity.Name.find('=') != std::string::npos)
+	{
+		PrintWarning("Activity name cannot contain the '=' character. Please try again.");
 		return;
 	}
 
@@ -78,6 +87,48 @@ void ActivityManager::CompleteActivity(int index)
 	std::cout << "Activity " << m_activities[index].Name << " completed!" << std::endl;
 
 	SaveActivitiesToFile();
+}
+
+void ActivityManager::SortByName()
+{
+	std::sort(m_activities.begin(), m_activities.end(), [this](const Activity& a, const Activity& b)
+	{
+		return CompareActivityNameCaseInsensitive(a.Name, b.Name);
+	});
+
+	PrintActivities();
+}
+
+void ActivityManager::SortByPriority()
+{
+	std::sort(m_activities.begin(), m_activities.end(), [](const Activity& a, const Activity& b)
+	{
+		return a.Priority > b.Priority;
+	});
+
+	PrintActivities();
+}
+
+void ActivityManager::SortByStatus()
+{
+	std::sort(m_activities.begin(), m_activities.end(), [](const Activity& a, const Activity& b)
+	{
+		return a.Status > b.Status;
+	});
+
+	PrintActivities();
+}
+
+void ActivityManager::SortByPriorityThenName()
+{
+	std::sort(m_activities.begin(), m_activities.end(), [this](const Activity& a, const Activity& b)
+	{
+		if (a.Priority == b.Priority)
+			return CompareActivityNameCaseInsensitive(a.Name, b.Name);
+		return a.Priority > b.Priority;
+	});
+
+	PrintActivities();
 }
 
 void ActivityManager::PrintActivities() const
@@ -264,15 +315,28 @@ void ActivityManager::PrintActivity(const Activity& activity, int number) const
 		std::endl;
 }
 
-void ActivityManager::SaveActivitiesToFile() const
+bool ActivityManager::CompareActivityNameCaseInsensitive(std::string a, std::string b)
 {
-	std::ofstream file("activities.txt");
+	std::transform(a.begin(), a.end(), a.begin(),
+		[](unsigned char c) { return std::tolower(c); });
+
+	std::transform(b.begin(), b.end(), b.begin(),
+		[](unsigned char c) { return std::tolower(c); });
+
+	return a < b;
+}
+
+void ActivityManager::SaveActivitiesToFile()
+{
+	std::ofstream file(SAVE_FILE_PATH);
 
 	if (!file.is_open())
 	{
 		PrintError("Failed to save activities to file.");
 		return;
 	}
+
+	file << "VERSION=" << SAVE_FILE_VERSION << std::endl;
 
 	for (const Activity& activity : m_activities)
 		file << activity.Name << "|" << static_cast<int>(activity.Priority) << "|" << static_cast<int>(activity.Status) << std::endl;
@@ -282,35 +346,77 @@ void ActivityManager::SaveActivitiesToFile() const
 
 void ActivityManager::LoadActivitiesFromFile()
 {
-	std::ifstream file("activities.txt");
+	std::ifstream file(SAVE_FILE_PATH);
 
-	if (!file.is_open()) return;
+	if (!file) return;
 
 	std::string line;
 
+	if (!std::getline(file, line))
+		return;
+
+	size_t firstDelimiter{ line.find('=') };
+
+	if (firstDelimiter == std::string::npos)
+	{
+		PrintWarning("Missing version in save file.");
+		file.close();
+		return;
+	}
+
+	try
+	{
+		int version = std::stoi(line.substr(firstDelimiter + 1));
+
+		if (version != SAVE_FILE_VERSION)
+		{
+			PrintWarning("Incompatible version in save file.");
+			file.close();
+			return;
+		}
+	}
+	catch (const std::exception&)
+	{
+		PrintWarning("Invalid version in save file.");
+		file.close();
+		return;
+	}
+
+	size_t secondDelimiter{ 0 };
+	std::string name{ "" };
+
 	while (std::getline(file, line))
 	{
-		size_t firstDelimiter = line.find('|');
-		size_t secondDelimiter = line.find('|', firstDelimiter + 1);
+		firstDelimiter = line.find('|') ;
+
+		secondDelimiter = line.find('|', firstDelimiter + 1);
 
 		if (firstDelimiter == std::string::npos || secondDelimiter == std::string::npos)
 			continue;
 
-		std::string name = line.substr(0, firstDelimiter);
+		name = line.substr(0, firstDelimiter);
 
-		int priorityValue = std::stoi(line.substr(firstDelimiter + 1, secondDelimiter - firstDelimiter - 1));
-		int statusValue = std::stoi(line.substr(secondDelimiter + 1));
-
-		if (priorityValue < static_cast<int>(PriorityLevel::Lowest) || priorityValue > static_cast<int>(PriorityLevel::Highest) ||
-			statusValue < static_cast<int>(ActivityStatus::Todo) || statusValue > static_cast<int>(ActivityStatus::Completed))
+		try
 		{
-			continue;
+			int priorityValue = std::stoi(line.substr(firstDelimiter + 1, secondDelimiter - firstDelimiter - 1));
+			int statusValue = std::stoi(line.substr(secondDelimiter + 1));
+
+			if (priorityValue < static_cast<int>(PriorityLevel::Lowest) || priorityValue > static_cast<int>(PriorityLevel::Highest) ||
+				statusValue < static_cast<int>(ActivityStatus::Todo) || statusValue > static_cast<int>(ActivityStatus::Completed))
+			{
+				continue;
+			}
+
+			PriorityLevel priority{ static_cast<PriorityLevel>(priorityValue) };
+			ActivityStatus status{ static_cast<ActivityStatus>(statusValue)	};
+
+			m_activities.emplace_back(name, priority, status);
 		}
-
-		PriorityLevel priority = static_cast<PriorityLevel>(priorityValue);
-		ActivityStatus status = static_cast<ActivityStatus>(statusValue);
-
-		m_activities.emplace_back(name, priority, status);
+		catch (const std::exception&)
+		{
+			PrintWarning("Invalid activity data in save file. Skipping line.");
+			continue;
+		}		
 	}
 	file.close();
 }

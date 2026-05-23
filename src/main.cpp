@@ -125,6 +125,18 @@ int main()
 			inputNumber--;
 			activityManager.RemoveActivity(inputNumber);
 			break;
+		case SORT_BY_NAME_OPTION:
+			activityManager.SortByName();
+			break;
+		case SORT_BY_PRIORITY_OPTION:
+			activityManager.SortByPriority();
+			break;
+		case SORT_BY_STATUS_OPTION:
+			activityManager.SortByStatus();
+			break;
+		case SORT_BY_PRIORITY_THEN_NAME_OPTION:
+			activityManager.SortByPriorityThenName();
+			break;
 		case PRINT_ALL_ACTIVITIES_OPTION:
 			activityManager.PrintActivities();
 			break;

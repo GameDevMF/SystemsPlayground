@@ -6,16 +6,20 @@ constexpr char ADD_ACTIVITY_OPTION{ '1' };
 constexpr char START_ACTIVITY_OPTION{ '2' };
 constexpr char COMPLETE_ACTIVITY_OPTION{ '3' };
 constexpr char REMOVE_ACTIVITY_OPTION{ '4' };
-constexpr char PRINT_ALL_ACTIVITIES_OPTION{ '5' };
-constexpr char PRINT_LONG_ACTIVITIES_OPTION{ '6' };
-constexpr char PRINT_SHORTEST_ACTIVITY_OPTION{ '7' };
-constexpr char PRINT_LONGEST_ACTIVITY_OPTION{ '8' };
-constexpr char PRINT_AVERAGE_ACTIVITY_NAME_LENGTH_OPTION{ '9' };
-constexpr char PRINT_TODO_ACTIVITIES_OPTION{ '0' };
-constexpr char PRINT_IN_PROGRESS_ACTIVITIES_OPTION{ 'a' };
-constexpr char PRINT_COMPLETED_ACTIVITIES_OPTION{ 'b' };
-constexpr char SHOW_DEVELOPER_OPTION{ 'c' };
-constexpr char EXIT_OPTION{ 'd' };
+constexpr char SORT_BY_NAME_OPTION{ '5' };
+constexpr char SORT_BY_PRIORITY_OPTION{ '6' };
+constexpr char SORT_BY_STATUS_OPTION{ '7' };
+constexpr char SORT_BY_PRIORITY_THEN_NAME_OPTION{ '8' };
+constexpr char PRINT_ALL_ACTIVITIES_OPTION{ '9' };
+constexpr char PRINT_LONG_ACTIVITIES_OPTION{ '0' };
+constexpr char PRINT_SHORTEST_ACTIVITY_OPTION{ 'a' };
+constexpr char PRINT_LONGEST_ACTIVITY_OPTION{ 'b' };
+constexpr char PRINT_AVERAGE_ACTIVITY_NAME_LENGTH_OPTION{ 'c' };
+constexpr char PRINT_TODO_ACTIVITIES_OPTION{ 'd' };
+constexpr char PRINT_IN_PROGRESS_ACTIVITIES_OPTION{ 'e' };
+constexpr char PRINT_COMPLETED_ACTIVITIES_OPTION{ 'f' };
+constexpr char SHOW_DEVELOPER_OPTION{ 'g' };
+constexpr char EXIT_OPTION{ 'h' };
 
 enum class ActivityStatus
 {

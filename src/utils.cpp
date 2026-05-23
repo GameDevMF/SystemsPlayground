@@ -15,16 +15,20 @@ void PrintMenu()
 	std::cout << "2. Start an activity" << std::endl;
 	std::cout << "3. Complete activity" << std::endl;
 	std::cout << "4. Remove an activity" << std::endl;
-	std::cout << "5. Print all activities" << std::endl;
-	std::cout << "6. Print long activities" << std::endl;
-	std::cout << "7. Print shortest activity" << std::endl;
-	std::cout << "8. Print longest activity" << std::endl;
-	std::cout << "9. Print average activity name length" << std::endl;
-	std::cout << "0. Print todo activities" << std::endl;
-	std::cout << "a. Print in-progress activities" << std::endl;
-	std::cout << "b. Print completed activities" << std::endl;
-	std::cout << "c. Show developer mode" << std::endl;
-	std::cout << "d. Exit" << std::endl;
+	std::cout << "5. Sort activiites by name" << std::endl;
+	std::cout << "6. Sort activiites by priority" << std::endl;
+	std::cout << "7. Sort activiites by status" << std::endl;
+	std::cout << "8. Sort activiites by priority then name" << std::endl;
+	std::cout << "9. Print all activities" << std::endl;
+	std::cout << "0. Print long activities" << std::endl;
+	std::cout << "a. Print shortest activity" << std::endl;
+	std::cout << "b. Print longest activity" << std::endl;
+	std::cout << "c. Print average activity name length" << std::endl;
+	std::cout << "d. Print todo activities" << std::endl;
+	std::cout << "e. Print in-progress activities" << std::endl;
+	std::cout << "f. Print completed activities" << std::endl;
+	std::cout << "g. Show developer mode" << std::endl;
+	std::cout << "h. Exit" << std::endl;
 }
 
 void PrintPriorityMenu()

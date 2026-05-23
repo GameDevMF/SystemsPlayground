@@ -340,3 +340,30 @@ Concepts practiced:
 - Persistent application state
 - File parsing and reconstruction
 - Defensive file handling
+
+## Week 2 - Day 6 Progress
+
+Completed:
+- Added activity sorting systems
+- Added custom comparison logic
+- Improved save file robustness
+- Added corrupted data handling
+- Refactored repeated save path usage
+- Expanded activity filtering systems
+
+Concepts practiced:
+- std::sort
+- STL algorithms
+- Custom comparators
+- Data ordering
+- Filtering systems
+- Defensive programming
+- Save validation
+- Maintainability improvements
+- Cleaner architecture organization
+- Case-insensitive sorting
+- Multi-criteria sorting
+- Save format versioning
+- Corrupted save recovery
+- Defensive deserialization
+- STL algorithm usage
