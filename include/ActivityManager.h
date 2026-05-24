@@ -10,6 +10,8 @@ public:
 
 	inline const std::vector<Activity>& GetActivities() const noexcept { return m_activities; }
 
+	bool TryGetActivityIndex(const std::string& input, int& outIndex) const;
+
 	void AddActivity(const Activity& activity);
 
 	void StartActivity(int index);
@@ -40,6 +42,8 @@ public:
 
 	void PrintActivitiesByStatus(ActivityStatus status) const;
 
+	void ClearActivities();
+
 	void ShowDeveloperMode() const;
 private:
 	std::vector<Activity> m_activities;
@@ -48,17 +52,19 @@ private:
 	
 	bool IsActivitiesEmpty() const;
 
-	bool IsValidActivityIndex(int index) const;
+	static std::string GetActivityStatusString(const Activity& activity);
 
-	std::string GetActivityStatusString(const Activity& activity) const;
+	static std::string GetActivityPriorityString(const Activity& activity);
 
-	std::string GetActivityPriorityString(const Activity& activity) const;
+	static void PrintActivity(const Activity& activity, int number = -1);
 
-	void PrintActivity(const Activity& activity, int number = -1) const;
-
-	bool CompareActivityNameCaseInsensitive(std::string a, std::string b);
+	static bool CompareActivityNameCaseInsensitive(std::string a, std::string b);
 
 	void SaveActivitiesToFile();
 
 	void LoadActivitiesFromFile();
+
+	static bool IsSaveFileVersionValid(const std::string& versionLine);
+
+	static bool TryParseActivityLine(const std::string& line, Activity& outActivity);
 };

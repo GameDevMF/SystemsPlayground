@@ -39,9 +39,9 @@ int main()
 			std::getline(std::cin, activityName);
 			while (true)
 			{
-				std::cout << "Enter the priority of the activity: ";
-				
 				PrintPriorityMenu();
+				
+				std::cout << "Enter the priority of the activity: ";
 
 				std::getline(std::cin, inputString);
 
@@ -65,65 +65,50 @@ int main()
 		case START_ACTIVITY_OPTION:
 			while (true)
 			{
-				std::cout << "Enter the index of the activity you want to start: ";
-
 				activityManager.PrintActivities();
+
+				std::cout << "Enter the index of the activity you want to start: ";
 
 				std::getline(std::cin, inputString);
 
-				if (!TryToGetInputNumber(inputString, inputNumber))
+				if (activityManager.TryGetActivityIndex(inputString, inputNumber))
 				{
-					PrintError("The Priority must be a valid number");
-					continue;
+					activityManager.StartActivity(inputNumber);
+					break;
 				}
-				
-				break;
 			}
-
-			inputNumber--;
-			activityManager.StartActivity(inputNumber);
 			break;
 		case COMPLETE_ACTIVITY_OPTION:
 			while (true)
 			{
-				std::cout << "Enter the index of the activity you want to complete: ";
-
 				activityManager.PrintActivities();
+
+				std::cout << "Enter the index of the activity you want to complete: ";
 
 				std::getline(std::cin, inputString);
 
-				if (!TryToGetInputNumber(inputString, inputNumber))
+				if (activityManager.TryGetActivityIndex(inputString, inputNumber))
 				{
-					PrintError("The Priority must be a valid number");
-					continue;
+					activityManager.CompleteActivity(inputNumber);
+					break;
 				}
-
-				break;
 			}
-
-			inputNumber--;
-			activityManager.CompleteActivity(inputNumber);
 			break;
 		case REMOVE_ACTIVITY_OPTION:
 			while (true)
 			{
-				std::cout << "Enter the index of the activity you want to remove: ";
-
 				activityManager.PrintActivities();
+
+				std::cout << "Enter the index of the activity you want to remove: ";
 
 				std::getline(std::cin, inputString);
 
-				if (!TryToGetInputNumber(inputString, inputNumber))
+				if (activityManager.TryGetActivityIndex(inputString, inputNumber))
 				{
-					PrintError("The Priority must be a valid number");
-					continue;
+					activityManager.RemoveActivity(inputNumber);
+					break;
 				}
-
-				break;
-			}
-
-			inputNumber--;
-			activityManager.RemoveActivity(inputNumber);
+			}			
 			break;
 		case SORT_BY_NAME_OPTION:
 			activityManager.SortByName();
@@ -160,6 +145,15 @@ int main()
 			break;
 		case PRINT_COMPLETED_ACTIVITIES_OPTION:
 			activityManager.PrintActivitiesByStatus(ActivityStatus::Completed);
+			break;
+		case CLEAR_ACTIVITIES_OPTION:
+			std::cout << "Are you sure you want to clear all activities? (y/n): ";
+
+			std::getline(std::cin, inputString);
+
+			if (inputString == "y" || inputString == "Y")
+				activityManager.ClearActivities();
+
 			break;
 		case SHOW_DEVELOPER_OPTION:
 			activityManager.ShowDeveloperMode();

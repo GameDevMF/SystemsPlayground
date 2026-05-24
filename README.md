@@ -28,6 +28,19 @@ small practical systems developed incrementally over time.
 - Header/source file separation
 - Git repository setup
 
+## Week 2
+- Object-oriented activity management system
+- Activity lifecycle tracking
+- Strongly typed enums
+- Persistent save/load system
+- Activity sorting and filtering
+- Defensive file parsing
+- Save file versioning
+- Input validation utilities
+- Developer diagnostics tools
+- Case-insensitive sorting
+- Modular serialization system
+
 ---
 
 # Folder Structure
@@ -48,9 +61,11 @@ SystemsPlayground/
 # Technologies
 
 - C++
+- STL
 - Git
 - Command Line / Terminal
 - Visual Studio
+- File I/O
 
 ---
 
@@ -67,6 +82,9 @@ containing:
 - Testing infrastructure
 - Serialization systems
 - Utility modules
+- Debugging utilities
+- Data processing systems
+- Small engine-style subsystems
 
 ---
 
@@ -77,6 +95,10 @@ Build more than consume.
 Focus on consistency over intensity.
 
 Learn by constructing systems, debugging mistakes, and iterating repeatedly.
+
+Prefer clarity and maintainability over unnecessary complexity.
+
+Treat every small system as deliberate engineering practice.
 
 ---
 
@@ -100,6 +122,8 @@ Concepts practiced:
 - Modular code organization
 - Git commits
 
+---
+
 ## Week 1 - Day 2 Progress
 
 Completed:
@@ -119,6 +143,8 @@ Concepts practiced:
 - Function organization
 - Defensive programming
 
+---
+
 ## Week 1 - Day 3 Progress
 
 Completed:
@@ -136,6 +162,8 @@ Concepts practiced:
 - Functions
 - Persistent data storage
 - enumerate()
+
+---
 
 ## Week 1 - Day 4 Progress
 
@@ -159,6 +187,8 @@ Concepts practiced:
 - Console styling
 - Safer iteration patterns
 
+---
+
 ## Week 1 - Day 5 Progress
 
 Completed:
@@ -181,6 +211,8 @@ Concepts practiced:
 - Reusable helper functions
 - Basic platform-specific APIs
 
+---
+
 ## Week 1 - Day 6 Progress
 
 Completed:
@@ -200,6 +232,8 @@ Concepts practiced:
 - Collection transformations
 - Incremental architecture evolution
 - Runtime state mutation
+
+---
 
 ## Week 1 - Day 7 Progress
 
@@ -222,6 +256,8 @@ Concepts practiced:
 - Engineering retrospectives
 - Incremental system improvement
 
+---
+
 ## Week 2 - Day 1 Progress
 
 Completed:
@@ -240,6 +276,8 @@ Concepts practiced:
 - Member functions
 - Header/source separation
 - Refactoring toward object-oriented design
+
+---
 
 ## Week 2 - Day 2 Progress
 
@@ -260,6 +298,8 @@ Concepts practiced:
 - Encapsulation
 - Controlled object creation
 
+---
+
 ## Week 2 - Day 3 Progress
 
 Completed:
@@ -279,6 +319,8 @@ Concepts practiced:
 - API safety
 - Avoiding unnecessary copies
 - Reusable formatting systems
+
+---
 
 ## Week 2 - Day 4 Progress
 
@@ -315,6 +357,8 @@ Key learning:
 - Reusable utility functions reduce duplication
 - Robust input handling is essential for stable software
 
+---
+
 ## Week 2 - Day 5 Progress
 
 Completed:
@@ -341,6 +385,8 @@ Concepts practiced:
 - File parsing and reconstruction
 - Defensive file handling
 
+---
+
 ## Week 2 - Day 6 Progress
 
 Completed:
@@ -350,6 +396,10 @@ Completed:
 - Added corrupted data handling
 - Refactored repeated save path usage
 - Expanded activity filtering systems
+- Added case-insensitive sorting support
+- Added save file versioning
+- Added defensive deserialization checks
+- Improved invalid data recovery handling
 
 Concepts practiced:
 - std::sort
@@ -367,3 +417,30 @@ Concepts practiced:
 - Corrupted save recovery
 - Defensive deserialization
 - STL algorithm usage
+
+---
+
+## Week 2 - Day 7 Progress
+
+Completed:
+- Performed Week 2 architecture cleanup
+- Refactored serialization/version handling
+- Improved save compatibility validation
+- Reduced duplicated logic across systems
+- Improved naming consistency
+- Refined sorting and utility systems
+- Improved defensive loading workflow
+- Reviewed overall code maintainability
+- Continued cleanup of object-oriented architecture
+
+Concepts practiced:
+- Architecture cleanup
+- Refactoring workflows
+- Naming consistency
+- Defensive loading systems
+- Maintainability improvements
+- Serialization validation
+- Incremental software evolution
+- Codebase organization
+- System robustness
+- Long-term project maintainability

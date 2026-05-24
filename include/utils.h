@@ -18,8 +18,9 @@ constexpr char PRINT_AVERAGE_ACTIVITY_NAME_LENGTH_OPTION{ 'c' };
 constexpr char PRINT_TODO_ACTIVITIES_OPTION{ 'd' };
 constexpr char PRINT_IN_PROGRESS_ACTIVITIES_OPTION{ 'e' };
 constexpr char PRINT_COMPLETED_ACTIVITIES_OPTION{ 'f' };
-constexpr char SHOW_DEVELOPER_OPTION{ 'g' };
-constexpr char EXIT_OPTION{ 'h' };
+constexpr char CLEAR_ACTIVITIES_OPTION{ 'g' };
+constexpr char SHOW_DEVELOPER_OPTION{ 'h' };
+constexpr char EXIT_OPTION{ 'i' };
 
 enum class ActivityStatus
 {
@@ -42,6 +43,8 @@ struct Activity
 	std::string Name{ "" };
 	PriorityLevel Priority{ PriorityLevel::Lowest };
 	ActivityStatus Status{ ActivityStatus::Todo };
+
+	Activity() = default;
 
 	Activity(const std::string& name)
 		: Name(name) {}
