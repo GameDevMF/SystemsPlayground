@@ -444,3 +444,43 @@ Concepts practiced:
 - Codebase organization
 - System robustness
 - Long-term project maintainability
+
+---
+
+## Week 3 - Day 1 Progress
+
+Completed:
+- Added centralized command processing system
+- Introduced reusable command parsing workflow
+- Refactored CLI interaction into command-based architecture
+- Added clear command for activity reset
+- Improved input routing through ProcessCommand
+- Added reusable command retrieval helper
+- Improved activity index validation flow
+- Added safer startup save validation pipeline
+- Refactored save parsing into dedicated helper functions
+- Added reusable activity deserialization helper
+- Improved corrupted save handling
+- Refactored version validation into dedicated function
+- Introduced modern C++ starts_with command parsing
+- Reduced duplicated command logic
+
+Concepts practiced:
+- Command systems
+- CLI architecture
+- Parsing workflows
+- Function decomposition
+- Responsibility separation
+- Centralized input handling
+- Serialization pipelines
+- Deserialization
+- Defensive file parsing
+- Validation systems
+- std::sort
+- Lambda functions
+- Modern C++ string utilities
+- starts_with
+- Encapsulation
+- Reusable parsing helpers
+- Incremental architecture refactoring
+- Cleaner system organization

@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "ActivityManager.h"
+#include "utils.h"
 
 constexpr int LONG_ACTIVITY_NAME_THRESHOLD{ 7 };
 constexpr int SAVE_FILE_VERSION{ 1 };
@@ -84,6 +85,12 @@ void ActivityManager::StartActivity(int index)
 	if (m_activities[index].Status == ActivityStatus::Completed)
 	{
 		PrintWarning("This activity is already completed. Please try again.");
+		return;
+	}
+
+	if (m_activities[index].Status == ActivityStatus::InProgress)
+	{
+		PrintWarning("This activity is already in progress. Please try again.");
 		return;
 	}
 

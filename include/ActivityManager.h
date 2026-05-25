@@ -1,7 +1,36 @@
 #pragma once
 #include <vector>
 
-#include "utils.h"
+enum class ActivityStatus
+{
+	Todo,
+	InProgress,
+	Completed
+};
+
+enum class PriorityLevel
+{
+	Lowest = 1,
+	Low = 2,
+	Medium = 3,
+	High = 4,
+	Highest = 5
+};
+
+struct Activity
+{
+	std::string Name{ "" };
+	PriorityLevel Priority{ PriorityLevel::Lowest };
+	ActivityStatus Status{ ActivityStatus::Todo };
+
+	Activity() = default;
+
+	Activity(const std::string& name)
+		: Name(name) {}
+
+	Activity(const std::string& name, PriorityLevel priority, ActivityStatus status = ActivityStatus::Todo)
+		: Name(name), Priority(priority), Status(status) {}
+};
 
 class ActivityManager
 {
@@ -48,7 +77,7 @@ public:
 private:
 	std::vector<Activity> m_activities;
 
-	std::string m_currentMilestone{ "Week 1 Complete" };
+	std::string m_currentMilestone{ "Week 2 Complete" };
 	
 	bool IsActivitiesEmpty() const;
 
