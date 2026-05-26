@@ -5,9 +5,12 @@
 #include "utils.h"
 #include "ActivityManager.h"
 
+static AppConfig s_appConfig;
+
 int main()
 {
-	PrintWelcome();
+	if (s_appConfig.bShowWelcomeMessage)
+		PrintWelcome();
 
 	std::string name{ "" };
 	std::cout << "Enter your name: ";
@@ -25,6 +28,10 @@ int main()
 	}
 
 	PrintGoodbye(name);
+
+	if (s_appConfig.bShowDeveloperModeEnabled)
+		activityManager.ShowDeveloperMode();
+
 	std::cin.get();
 
 	return 0;

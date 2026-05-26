@@ -484,3 +484,37 @@ Concepts practiced:
 - Reusable parsing helpers
 - Incremental architecture refactoring
 - Cleaner system organization
+
+---
+
+## Week 3 - Day 2 Progress
+
+Completed:
+- Added command alias system
+- Refactored command handling into dedicated helper functions
+- Added runtime configuration system
+- Added activity statistics command
+- Added command usage tracking system
+- Introduced unordered_map for command analytics
+- Added reusable input index helper
+- Improved command readability and maintainability
+- Added configurable welcome/developer mode behavior
+- Improved command organization and separation of concerns
+
+Concepts practiced:
+- std::unordered_map
+- Hash maps
+- Runtime configuration systems
+- Command systems
+- Function decomposition
+- Separation of concerns
+- Refactoring
+- Command aliases
+- State tracking
+- Runtime settings
+- Cleaner CLI architecture
+- Reusable helper functions
+- Modular command processing
+- Data aggregation
+- Const correctness
+- Structured command workflows

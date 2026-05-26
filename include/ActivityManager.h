@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <unordered_map>
 
 enum class ActivityStatus
 {
@@ -71,13 +72,19 @@ public:
 
 	void PrintActivitiesByStatus(ActivityStatus status) const;
 
+	void PrintStats() const;
+
 	void ClearActivities();
 
 	void ShowDeveloperMode() const;
+
+	void IncrementCommandCount(const std::string& command);
 private:
+	std::string m_currentMilestone{ "Week 2 Complete" };
+
 	std::vector<Activity> m_activities;
 
-	std::string m_currentMilestone{ "Week 2 Complete" };
+	std::unordered_map<std::string, int> m_commandCount;
 	
 	bool IsActivitiesEmpty() const;
 
@@ -96,4 +103,6 @@ private:
 	static bool IsSaveFileVersionValid(const std::string& versionLine);
 
 	static bool TryParseActivityLine(const std::string& line, Activity& outActivity);
+
+	bool ContainsInvalidSaveCharacter(const std::string& name);
 };

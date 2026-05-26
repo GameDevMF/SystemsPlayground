@@ -63,17 +63,8 @@ void ActivityManager::AddActivity(const Activity& activity)
 		}
 	}
 
-	if (activity.Name.find('|') != std::string::npos)
-	{
-		PrintWarning("Activity name cannot contain the '|' character. Please try again.");
+	if (ContainsInvalidSaveCharacter(activity.Name))
 		return;
-	}
-
-	if (activity.Name.find('=') != std::string::npos)
-	{
-		PrintWarning("Activity name cannot contain the '=' character. Please try again.");
-		return;
-	}
 
 	m_activities.push_back(activity);
 
@@ -249,6 +240,18 @@ void ActivityManager::PrintActivitiesByStatus(ActivityStatus status) const
 			PrintActivity(activity);
 }
 
+void ActivityManager::PrintStats() const
+{
+	std::cout << "---Activity stats---" << std::endl;
+	std::cout << "Total activities: " << m_activities.size() << std::endl;
+	std::cout << "Completed activities: " << std::endl;
+	PrintActivitiesByStatus(ActivityStatus::Completed);
+	std::cout << "In progress activities: " << std::endl;
+	PrintActivitiesByStatus(ActivityStatus::InProgress);
+	std::cout << "Todo activities: " << std::endl;
+	PrintActivitiesByStatus(ActivityStatus::Todo);
+}
+
 void ActivityManager::ClearActivities()
 {
 	m_activities.clear();
@@ -276,6 +279,14 @@ void ActivityManager::ShowDeveloperMode() const
 	std::cout << "Percentage of completed activities: " << completedPercentage << std::endl;
 	std::cout << "Current build target: " << (sizeof(void*) == 8 ? "x64" : "x86") << std::endl;
 	std::cout << "Current Milestone: " << m_currentMilestone << std::endl;
+
+	for (const auto& [command, count] : m_commandCount)
+		std::cout << "Command '" << command << "' used " << count << " times." << std::endl;
+}
+
+void ActivityManager::IncrementCommandCount(const std::string& command)
+{
+	m_commandCount[command]++;
 }
 
 bool ActivityManager::IsActivitiesEmpty() const
@@ -451,4 +462,20 @@ bool ActivityManager::TryParseActivityLine(const std::string& line, Activity& ou
 	}
 
 	return true;
+}
+
+bool ActivityManager::ContainsInvalidSaveCharacter(const std::string& name)
+{
+	if (name.find('|') != std::string::npos)
+	{
+		PrintWarning("Activity name cannot contain the '|' character. Please try again.");
+		return true;
+	}
+
+	if (name.find('=') != std::string::npos)
+	{
+		PrintWarning("Activity name cannot contain the '=' character. Please try again.");
+		return true;
+	}
+	return false;
 }
